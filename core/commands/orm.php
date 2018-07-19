@@ -10,14 +10,15 @@ use sql_links\factories\RequestConnexion;
 class orm extends command
 {
 
+    private $whole;
+
     public function __construct(array $args = [])
     {
         $this->argv = $args;
     }
 
     private function genere_model() {
-
-        $modelName = $this->get_from_name('whole');
+        $modelName = $this->get_from_name('whole') ? $this->get_from_name('whole') : $this->whole;
 
         $methods = [
             [
@@ -175,7 +176,7 @@ class orm extends command
     }
 
     private function genere_controller() {
-        $controllerName = $this->get_from_name('whole');
+        $controllerName = $this->get_from_name('whole') ? $this->get_from_name('whole') : $this->whole;
         $controllerContent = "<?php\n\n".
         "\tnamespace ormframework\custom\mvc\controllers;\n\n".
         "\tuse ormframework\core\mvc\Controller;\n\n".
@@ -185,7 +186,7 @@ class orm extends command
     }
 
     private function genere_entity($name = '', $properties = []) {
-        $entityName = $this->get_from_name('whole');
+        $entityName = $this->get_from_name('whole') ? $this->get_from_name('whole') : $this->whole;
 		$entityContent = "<?php\n\n".
         "\tnamespace ormframework\custom\db_context;\n\n".
         "\tuse \ormframework\core\db_context\\entity;\n\n".
@@ -272,7 +273,6 @@ class orm extends command
 
     /**
      * génère un ensemble (whole) de model, controllers, entities en fonction d'une bdd sql ou json
-     * @param string $name
      */
     public function new_whole() {
         $this->genere_controller();
@@ -303,11 +303,10 @@ class orm extends command
 			$tables = $request->show()->tables()->query();
             foreach ($tables as $table) {
                 $filds = $request->show()->columns()->from($table)->query();
-                $this->new_whole($table);
+                $this->whole = $table;
+                $this->new_whole();
                 $this->genere_entity($table, $filds);
             }
-
-            //var_dump($request->select()->from('user')->where(['id' => 0])->query());
 		}
 	}
 }

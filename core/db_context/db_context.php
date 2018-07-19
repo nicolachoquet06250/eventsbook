@@ -12,8 +12,7 @@ use stdClass;
 class db_context extends utils
 {
     private $bdd_type, $cnx_array;
-    public function __construct($bdd_type, $cnx_array)
-    {
+    public function __construct($bdd_type, $cnx_array) {
         $this->bdd_type = $bdd_type;
         $this->cnx_array = $cnx_array;
     }

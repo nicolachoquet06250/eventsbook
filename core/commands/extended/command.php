@@ -16,8 +16,10 @@ class command extends \ormframework\core\setup\utils implements commande
      * @param $args
      * @throws Exception
      */
-    public function __construct($args = [])
-    {
+    public function __construct($args = []) {
+        if(gettype($args) === 'string') {
+            $args = explode(' ', (string)$args);
+        }
         if(count($args) > 1) {
             $args = implode('|', $args);
             $args = explode('|do|', $args);

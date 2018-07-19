@@ -1,10 +1,10 @@
 {
   "mysql": {
-    "connexion1": {
+    "eventsbook": {
       "host": "localhost",
       "user": "root",
       "password": "root",
-      "database": "test",
+      "database": "eventsbook",
       "port": 3306
     }
   },
@@ -18,9 +18,9 @@
     }
   },
   "json": {
-    "connexion1": {
+    "eventsbook": {
       "path_to_database": "custom\/setup",
-      "database": "test"
+      "database": "eventsbook"
     }
   }
 }

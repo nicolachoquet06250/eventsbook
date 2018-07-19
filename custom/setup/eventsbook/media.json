@@ -1,0 +1,1 @@
+{"header": [{ "champ": "id", "type": "INT", "key": "primary_key", "autoincrement": true }, { "champ": "label", "type": "TEXT", "autoincrement": false }, { "champ": "data_name", "type": "TEXT", "autoincrement": false }, { "champ": "base64_data", "type": "TEXT", "autoincrement": false }], "datas": []}
