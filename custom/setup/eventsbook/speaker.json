@@ -1,1 +1,61 @@
-{"header":[{"champ":"id","type":"INT","key":"primary_key","autoincrement":true},{"champ":"nom","type":"TEXT","autoincrement":false},{"champ":"prenom","type":"TEXT","autoincrement":false},{"champ":"description","type":"TEXT","autoincrement":false}],"datas":[{"id":0,"nom":"Choquet","prenom":"Nicolas","description":"Voici une petite description"},{"id":1,"nom":"Loubet","prenom":"Karine","description":"voici une description"},{"id":2,"nom":"Choquet","prenom":"Yann","description":"voici une description"}]}
+{
+  "header": [
+    {
+      "champ": "id",
+      "type": "INT",
+      "key": "primary_key",
+      "autoincrement": true
+    },
+    {
+      "champ": "nom",
+      "type": "TEXT",
+      "autoincrement": false
+    },
+    {
+      "champ": "prenom",
+      "type": "TEXT",
+      "autoincrement": false
+    },
+    {
+      "champ": "description",
+      "type": "TEXT",
+      "autoincrement": false
+    },
+    {
+      "champ": "email",
+      "type": "TEXT",
+      "autoincrement": false
+    },
+    {
+      "champ": "password",
+      "type": "TEXT",
+      "autoincrement": false
+    }
+  ],
+  "datas": [
+    {
+      "id": 0,
+      "nom": "Choquet",
+      "prenom": "Nicolas",
+      "description": "Voici une petite description",
+      "email": "nicolachoquet06250@gmail.com",
+      "password": "2669NICOLAS2107"
+    },
+    {
+      "id": 1,
+      "nom": "Loubet",
+      "prenom": "Karine",
+      "description": "voici une description",
+      "email": "karine_sauny@hotmail.fr",
+      "password": ""
+    },
+    {
+      "id": 2,
+      "nom": "Choquet",
+      "prenom": "Yann",
+      "description": "voici une description",
+      "email": "choquet.yann@gmail.com",
+      "password": "2669YANN1204"
+    }
+  ]
+}

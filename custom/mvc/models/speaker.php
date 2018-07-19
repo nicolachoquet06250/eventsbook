@@ -114,4 +114,57 @@
 
 		}
 
+        /**
+         * @model speaker
+         * @description ajoute un speaker
+         * @method connection
+         * @param mixed $args
+         * @return Json
+         * @route speaker/connection
+         * @throws \Exception
+         **/
+		public function connection($args = []) {
+		    $retour = ($conf = $this->get_manager('services')->conf()->get_sql_conf($this->bdd_type)['eventsbook'])
+                    ? Request::getIRequest(new RequestConnexion((array)$conf, $this->bdd_type), $this->bdd_type)->select()
+                    ->from('speaker')
+                    ->where([
+                        'email' => $this->get_from_name('email', $args),
+                        'password' => $this->get_from_name('password', $args)
+                    ])->query()->get(0) : [];
+
+            if(empty((array)$retour)) {
+                $retour = ['success' => false];
+            }
+            else {
+                $user = (array)$retour->get_for_view();
+                unset($user['password']);
+                $retour = ['success' => true];
+                $_SESSION['user'] = $user;
+            }
+            return new Json($retour);
+        }
+
+        public function disconnect() {
+		    unset($_SESSION['user']);
+		    session_destroy();
+		    return new Json(['success' => true]);
+        }
+
+        /**
+         * @model speaker
+         * @description ajoute un speaker
+         * @method inscription
+         * @param mixed $args
+         * @return Json
+         * @route speaker/inscription
+         * @throws \Exception
+         **/
+        public function inscription($args = []) {
+            return $this->add($args);
+        }
+
+        public function connected() {
+            return new Json(isset($_SESSION['user']) ? $_SESSION['user'] : []);
+        }
+
 	}

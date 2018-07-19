@@ -41,7 +41,7 @@ class router extends utils
             }
         }
 
-        if(count(explode('.', $url)) > 1) {
+        if(count(explode('.', $url)) > 1 && !strstr($url, '@')) {
             if(isset($this->routes[$url])) {
                 if (is_file('custom/website/' . $this->routes[$url])) {
                     $type = 'custom';
@@ -67,8 +67,7 @@ class router extends utils
             }
             else {
                 $type = 'core';
-
-                ${404} = $this->get_manager()->error()->http_error();
+                ${404} = $this->get_manager('error')->http_error();
                 ${404}->code = 404;
                 ${404}->header();
 

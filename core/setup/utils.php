@@ -25,6 +25,10 @@ class utils {
         return isset($_FILES[$key]) ? htmlentities($_FILES[$key]) : null;
     }
 
+    public static function http_session($key='', $key2='') {
+        return isset($_SESSION[$key]) ? (isset($_SESSION[$key][$key2]) ? htmlentities($_SESSION[$key][$key2]) : htmlentities($_SESSION[$key])) : null;
+    }
+
     public static function var_dump($var) {
         ob_start();
         var_dump($var);

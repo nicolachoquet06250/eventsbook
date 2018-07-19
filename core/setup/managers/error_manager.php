@@ -40,7 +40,7 @@ class error_manager extends \ormframework\core\setup\utils implements \ormframew
     {
         if(is_file('core/errors/'.$name.'.php')) {
         	$name = '\\ormframework\\core\\errors\\'.$name;
-            $service = new $name($arguments);
+            $service = new $name();
             if($service instanceof http_error) {
                 return $service;
             }

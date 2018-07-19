@@ -2,7 +2,9 @@
 
 namespace ormframework\core\errors;
 
-class http_error extends \ormframework\core\db_context\entity
+use ormframework\core\db_context\entity;
+
+class http_error extends entity
 {
     public $code, $message = 'Page not found';
 

@@ -7,6 +7,7 @@ use \ormframework\core\annotation\PhpDocParser;
 use \ormframework\core\setup\router;
 use \ormframework\custom\setup\utils;
 
+session_start();
 header('Access-Control-Allow-Origin: *');
 $path_prefix = '';
 
