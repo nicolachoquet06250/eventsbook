@@ -116,7 +116,7 @@
 
         /**
          * @model speaker
-         * @description ajoute un speaker
+         * @description connection d'un utilisateur
          * @method connection
          * @param mixed $args
          * @return Json
@@ -144,7 +144,16 @@
             return new Json($retour);
         }
 
-        public function disconnect() {
+        /**
+         * @model speaker
+         * @description déconnecte un utilisateur
+         * @method disconnect
+         * @param mixed $args
+         * @return Json
+         * @route speaker/disconnect
+         * @throws \Exception
+         **/
+        public function disconnect($args = []) {
 		    unset($_SESSION['user']);
 		    session_destroy();
 		    return new Json(['success' => true]);
@@ -152,7 +161,7 @@
 
         /**
          * @model speaker
-         * @description ajoute un speaker
+         * @description inscrit un utilisateur
          * @method inscription
          * @param mixed $args
          * @return Json
@@ -163,7 +172,16 @@
             return $this->add($args);
         }
 
-        public function connected() {
+        /**
+         * @model speaker
+         * @description retourne l'utilisateur connecté
+         * @method connected
+         * @param mixed $args
+         * @return Json
+         * @route speaker/connected
+         * @throws \Exception
+         **/
+        public function connected($args = []) {
             return new Json(isset($_SESSION['user']) ? $_SESSION['user'] : []);
         }
 
