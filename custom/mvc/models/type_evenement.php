@@ -9,11 +9,11 @@
 	use \ormframework\custom\mvc\views\Json;
 
 	class type_evenement extends Model {
-		private $my_utils;
-		public function __construct($is_assoc)
-		{
+		private $my_utils, $bdd_type;
+		public function __construct($is_assoc, $bdd_type='json') {
 			parent::__construct($is_assoc);
 			$this->my_utils = new utils();
+			$this->bdd_type = $bdd_type;
 		}
 
 		/**
@@ -26,8 +26,8 @@
 		 * @throws \Exception
 		 **/
 		public function get($args = []) {
-			if($conf = $this->get_manager('services')->conf()->get_sql_conf('json')['eventsbook']) {
-				$request = Request::getIRequest(new RequestConnexion((array)$conf, 'json'), 'json');
+			if($conf = $this->get_manager('services')->conf()->get_sql_conf($this->bdd_type)['eventsbook']) {
+				$request = Request::getIRequest(new RequestConnexion((array)$conf, $this->bdd_type), $this->bdd_type);
 				$retour = $request->select()->from('type_evenement')->query()->get($this->get_from_name('id', $args));
 			}
 			else {
@@ -47,8 +47,8 @@
 		 * @throws \Exception
 		 **/
 		public function add($args = []) {
-			if($conf = $this->get_manager('services')->conf()->get_sql_conf('json')['eventsbook']) {
-				$request = Request::getIRequest(new RequestConnexion((array)$conf, 'json'), 'json');
+			if($conf = $this->get_manager('services')->conf()->get_sql_conf($this->bdd_type)['eventsbook']) {
+				$request = Request::getIRequest(new RequestConnexion((array)$conf, $this->bdd_type), $this->bdd_type);
 				$type_evenement = new \ormframework\custom\db_context\type_evenement($request, false, ['label' => $this->get_from_name('label', $args)]);
 				$type_evenement->add();
 				$retour = $request->select()->from('type_evenement')->query()->get();
@@ -70,8 +70,8 @@
 		 * @throws \Exception
 		 **/
 		public function delete($args = []) {
-			if($conf = $this->get_manager('services')->conf()->get_sql_conf('json')['eventsbook']) {
-				$request = Request::getIRequest(new RequestConnexion((array)$conf, 'json'), 'json');
+			if($conf = $this->get_manager('services')->conf()->get_sql_conf($this->bdd_type)['eventsbook']) {
+				$request = Request::getIRequest(new RequestConnexion((array)$conf, $this->bdd_type), $this->bdd_type);
 				$type_evenement = new \ormframework\custom\db_context\type_evenement($request, false, [['id' => $this->get_from_name('id', $args)]]);
 				$type_evenement->remove();
 				$retour = $request->select()->from('type_evenement')->query()->get();
@@ -93,8 +93,8 @@
 		 * @throws \Exception
 		 **/
 		public function update($args = []) {
-			if($conf = $this->get_manager('services')->conf()->get_sql_conf('json')['eventsbook']) {
-				$request = Request::getIRequest(new RequestConnexion((array)$conf, 'json'), 'json');
+			if($conf = $this->get_manager('services')->conf()->get_sql_conf($this->bdd_type)['eventsbook']) {
+				$request = Request::getIRequest(new RequestConnexion((array)$conf, $this->bdd_type), $this->bdd_type);
 				/**
 				 * @var \ormframework\core\db_context\entity $type_evenement
 				 */
@@ -104,7 +104,7 @@
 						$type_evenement->$prop($this->get_from_name($prop, $args));
 					}
 				}
-				$retour = $request->select()->from('type_evenement')->query();
+				$retour = $request->select()->from('type_evenement')->query()->get();
 			}
 			else {
 				$retour = [];

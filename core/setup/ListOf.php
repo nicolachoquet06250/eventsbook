@@ -84,7 +84,7 @@ class ListOf
      * @throws Exception
      */
     public function get($id = null) {
-        if($id) {
+        if($id !== null) {
             if (isset($this->entitiesArray[$id])) {
                 return $this->entitiesArray[$id];
             } else {

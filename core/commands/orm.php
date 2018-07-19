@@ -12,8 +12,7 @@ class orm extends command
 
     private $whole;
 
-    public function __construct(array $args = [])
-    {
+    public function __construct(array $args = []) {
         $this->argv = $args;
     }
 
@@ -33,8 +32,8 @@ class orm extends command
                 ],
                 "name" => "get",
                 "content" => [
-                    "if(\$conf = \$this->get_manager('services')->conf()->get_sql_conf('{$this->get_from_name('bdd_type')}')['{$this->get_from_name('alias')}']) {\n",
-                    "\t\$request = Request::getIRequest(new RequestConnexion((array)\$conf, '{$this->get_from_name('bdd_type')}'), '{$this->get_from_name('bdd_type')}');\n",
+                    "if(\$conf = \$this->get_manager('services')->conf()->get_sql_conf(\$this->bdd_type)['{$this->get_from_name('alias')}']) {\n",
+                    "\t\$request = Request::getIRequest(new RequestConnexion((array)\$conf, \$this->bdd_type), \$this->bdd_type);\n",
                     "\t\$retour = \$request->select()->from('{$modelName}')->query()->get(\$this->get_from_name('id', \$args));\n",
                     "}\n",
                     "else {\n",
@@ -55,8 +54,8 @@ class orm extends command
                 ],
                 "name" => "add",
                 "content" => [
-                    "if(\$conf = \$this->get_manager('services')->conf()->get_sql_conf('{$this->get_from_name('bdd_type')}')['{$this->get_from_name('alias')}']) {\n",
-                    "\t\$request = Request::getIRequest(new RequestConnexion((array)\$conf, '{$this->get_from_name('bdd_type')}'), '{$this->get_from_name('bdd_type')}');\n",
+                    "if(\$conf = \$this->get_manager('services')->conf()->get_sql_conf(\$this->bdd_type)['{$this->get_from_name('alias')}']) {\n",
+                    "\t\$request = Request::getIRequest(new RequestConnexion((array)\$conf, \$this->bdd_type), \$this->bdd_type);\n",
                     "\t\${$modelName} = new \ormframework\custom\db_context\\".$modelName."(\$request, false, [{params_array}]);\n",
                     "\t\${$modelName}->add();\n",
                     "\t\$retour = \$request->select()->from('{$modelName}')->query()->get();\n",
@@ -79,8 +78,8 @@ class orm extends command
                 ],
                 "name" => "delete",
                 "content" => [
-                    "if(\$conf = \$this->get_manager('services')->conf()->get_sql_conf('{$this->get_from_name('bdd_type')}')['{$this->get_from_name('alias')}']) {\n",
-                    "\t\$request = Request::getIRequest(new RequestConnexion((array)\$conf, '{$this->get_from_name('bdd_type')}'), '{$this->get_from_name('bdd_type')}');\n",
+                    "if(\$conf = \$this->get_manager('services')->conf()->get_sql_conf(\$this->bdd_type)['{$this->get_from_name('alias')}']) {\n",
+                    "\t\$request = Request::getIRequest(new RequestConnexion((array)\$conf, \$this->bdd_type), \$this->bdd_type);\n",
                     "\t\${$modelName} = new \ormframework\custom\db_context\\".$modelName."(\$request, false, [['id' => \$this->get_from_name('id', \$args)]]);\n",
                     "\t\${$modelName}->remove();\n",
                     "\t\$retour = \$request->select()->from('{$modelName}')->query()->get();\n",
@@ -103,8 +102,8 @@ class orm extends command
                 ],
                 "name" => "update",
                 "content" => [
-                    "if(\$conf = \$this->get_manager('services')->conf()->get_sql_conf('{$this->get_from_name('bdd_type')}')['{$this->get_from_name('alias')}']) {\n",
-                    "\t\$request = Request::getIRequest(new RequestConnexion((array)\$conf, '{$this->get_from_name('bdd_type')}'), '{$this->get_from_name('bdd_type')}');\n",
+                    "if(\$conf = \$this->get_manager('services')->conf()->get_sql_conf(\$this->bdd_type)['{$this->get_from_name('alias')}']) {\n",
+                    "\t\$request = Request::getIRequest(new RequestConnexion((array)\$conf, \$this->bdd_type), \$this->bdd_type);\n",
                     "\t/**\n",
                     "\t * @var \ormframework\core\db_context\\entity \${$modelName}\n",
                     "\t */\n",
@@ -114,7 +113,7 @@ class orm extends command
                     "\t\t\t\${$modelName}->\$prop(\$this->get_from_name(\$prop, \$args));\n",
                     "\t\t}\n",
                     "\t}\n",
-                    "\t\$retour = \$request->select()->from('{$modelName}')->query();\n",
+                    "\t\$retour = \$request->select()->from('{$modelName}')->query()->get();\n",
                     "}\n",
                     "else {\n",
                     "\t\$retour = [];\n",
@@ -131,11 +130,11 @@ class orm extends command
         "\tuse sql_links\\factories\RequestConnexion;\n".
         "\tuse \ormframework\custom\mvc\\views\Json;\n\n".
         "\tclass {$modelName} extends Model {\n";
-        $modelContent .= "\t\tprivate \$my_utils;\n".
-        "\t\tpublic function __construct(\$is_assoc)\n".
-        "\t\t{\n".
+        $modelContent .= "\t\tprivate \$my_utils, \$bdd_type;\n".
+        "\t\tpublic function __construct(\$is_assoc, \$bdd_type='{$this->get_from_name('bdd_type')}') {\n".
         "\t\t\tparent::__construct(\$is_assoc);\n".
         "\t\t\t\$this->my_utils = new utils();\n".
+        "\t\t\t\$this->bdd_type = \$bdd_type;\n".
         "\t\t}\n\n";
         $entity = "\\ormframework\\custom\\db_context\\".$methods[0]['annotations']['model'];
         require_once $this->get_manager('services')->conf()->get_modules_conf()->modules->dbcontext->location['custom'].'/'.$methods[0]['annotations']['model'].'.php';

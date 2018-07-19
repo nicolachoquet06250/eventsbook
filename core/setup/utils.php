@@ -28,7 +28,7 @@ class utils {
     public static function var_dump($var) {
         ob_start();
         var_dump($var);
-        $content = ob_get_contents();
+        $content = '<pre>'.ob_get_contents().'</pre>';
         ob_end_clean();
         return $content;
     }
