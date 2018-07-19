@@ -1,1 +1,1 @@
-{"header": [{ "champ": "id", "type": "INT", "key": "primary_key", "autoincrement": true }, { "champ": "label", "type": "TEXT", "autoincrement": false }], "datas": []}
+{"header":[{"champ":"id","type":"INT","key":"primary_key","autoincrement":true},{"champ":"label","type":"TEXT","autoincrement":false}],"datas":[{"id":0,"label":"evenement"},{"id":1,"label":"conference"}]}

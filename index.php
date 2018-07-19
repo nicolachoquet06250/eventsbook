@@ -7,7 +7,7 @@ use \ormframework\core\annotation\PhpDocParser;
 use \ormframework\core\setup\router;
 use \ormframework\custom\setup\utils;
 
-
+header('Access-Control-Allow-Origin: *');
 $path_prefix = '';
 
 define('DEBUG', json_decode(file_get_contents($path_prefix.'core/ormf-modules-conf.json'))->debug);
