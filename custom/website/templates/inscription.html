@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Inscription</span>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="nom" type="text" />
+                    <label for="nom">Nom</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="prenom" type="text" />
+                    <label for="prenom">Prénom</label>
+                </div>
+                <div class="input-field col s12">
+                    <textarea id="description" class="materialize-textarea"></textarea>
+                    <label for="description">Description</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="email" type="text" />
+                    <label for="email">E-mail</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="password" type="password" />
+                    <label for="password">Mot de passe</label>
+                </div>
+            </div>
+        </div>
+        <div class="card-action">
+            <a href="javascript:Auth.inscription()">S'inscrire</a>
+            <a href="javascript:Auth.page_connection()">Connection</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -2,4 +2,4 @@ Options +FollowSymlinks -Indexes
 RewriteEngine On
 
 RewriteRule	^rest/(.*)$                 index.php?path=$1       [L]
-RewriteRule	^(.*).(htm|html|json|js)$   index.php?path=$1.$2    [L]
+RewriteRule	^(.*).(htm|html|json|css|js|php)$   index.php?path=$1.$2    [L]

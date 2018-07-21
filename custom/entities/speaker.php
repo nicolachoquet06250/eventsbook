@@ -19,4 +19,5 @@
 		protected $description;
 		protected $email;
 		protected $password;
+		protected $image;
 	}

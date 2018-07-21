@@ -3,8 +3,9 @@
 namespace ormframework\custom\mvc\views;
 
 use ormframework\core\db_context\entity;
+use ormframework\core\mvc\view;
 
-class Json extends \ormframework\core\mvc\view {
+class Json extends view {
 
     public function content_type() {
         return 'application/json';

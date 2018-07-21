@@ -41,14 +41,24 @@ class router extends utils
             }
         }
 
-        if(count(explode('.', $url)) > 1 && !strstr($url, '@')) {
+        if((count(explode('.', $url)) > 1 && !strstr($url, '@') || $url === '/')) {
             if(isset($this->routes[$url])) {
                 if (is_file('custom/website/' . $this->routes[$url])) {
                     $type = 'custom';
-                    echo file_get_contents($type.'/website/'.$this->routes[$url]);
+                    if(explode('.', $this->routes[$url])[count(explode('.', $this->routes[$url]))-1] !== 'php') {
+                        echo file_get_contents($type . '/website/' . $this->routes[$url]);
+                    }
+                    else {
+                        include $type . '/website/' . $this->routes[$url];
+                    }
                 } elseif (is_file('core/website/' . $this->routes[$url])) {
                     $type = 'core';
-                    echo file_get_contents($type.'/website/'.$this->routes[$url]);
+                    if(explode('.', $this->routes[$url])[count(explode('.', $this->routes[$url]))-1] !== 'php') {
+                        echo file_get_contents($type . '/website/' . $this->routes[$url]);
+                    }
+                    else {
+                        include $type . '/website/' . $this->routes[$url];
+                    }
                 } else {
                     $type = 'core';
 
@@ -66,19 +76,37 @@ class router extends utils
                 }
             }
             else {
-                $type = 'core';
-                ${404} = $this->get_manager('error')->http_error();
-                ${404}->code = 404;
-                ${404}->header();
-
-                if(is_file('./custom/website/errors/404.html')) {
+                if (is_file('custom/website/'.$url)) {
                     $type = 'custom';
-                }
-                elseif (is_file('./core/website/errors/404.html')) {
+                    if(explode('.', $url)[count(explode('.', $url))-1] !== 'php') {
+                        echo file_get_contents($type . '/website/'.$url);
+                    }
+                    else {
+                        include $type . '/website/'.$url;
+                    }
+                } elseif (is_file('core/website/'.$url)) {
                     $type = 'core';
-                }
+                    if(explode('.', $url)[count(explode('.', $url))-1] !== 'php') {
+                        echo file_get_contents($type . '/website/'.$url);
+                    }
+                    else {
+                        include $type . '/website/'.$url;
+                    }
+                } else {
+                    $type = 'core';
+                    ${404} = $this->get_manager('error')->http_error();
+                    ${404}->code = 404;
+                    ${404}->header();
 
-                echo file_get_contents('./'.$type.'/website/errors/404.html');
+                    if(is_file('./custom/website/errors/404.html')) {
+                        $type = 'custom';
+                    }
+                    elseif (is_file('./core/website/errors/404.html')) {
+                        $type = 'core';
+                    }
+
+                    echo file_get_contents('./'.$type.'/website/errors/404.html');
+                }
             }
         }
         else {
