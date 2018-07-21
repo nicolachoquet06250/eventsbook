@@ -41,7 +41,7 @@ class router extends utils
             }
         }
 
-        if((count(explode('.', $url)) > 1 && !strstr($url, '@') || $url === '/')) {
+        if(utils::http_get('front')) {
             if(isset($this->routes[$url])) {
                 if (is_file('custom/website/' . $this->routes[$url])) {
                     $type = 'custom';

@@ -3,7 +3,7 @@
 class Events {
     static get_conferences(callback) {
         $.ajax({
-            url: '?path=evenement/get',
+            url: '/rest/evenement/get',
             type: 'get',
         }).done((data) => {
             $(data).each((key, obj) => {
@@ -16,7 +16,7 @@ class Events {
 
     static get_other(callback) {
         $.ajax({
-            url: '?path=evenement/get',
+            url: '/rest/evenement/get',
             type: 'get',
         }).done((data) => {
             $(data).each((key, obj) => {
@@ -29,10 +29,14 @@ class Events {
 
     static get_type_events(callback) {
         $.ajax({
-            url: '?path=type_evenement/get',
+            url: '/rest/type_evenement/get',
             type: 'get'
         }).done((data) => {
             callback(data);
         });
+    }
+
+    static open_update_event_modal(id) {
+        $('#modal_update_event').modal('open');
     }
 }

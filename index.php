@@ -31,7 +31,10 @@ try {
         }
 		$_GET['path'] = htmlentities(str_replace('/?', '', $_SERVER['REQUEST_URI']));
 	}
-    router::instence()->get_defaults_routes()->route(utils::http_get('path'));
+	if(!utils::http_get('front')) {
+		$_GET['front'] = false;
+	}
+    router::instence()->get_defaults_routes()->route(utils::http_get('path'), utils::http_get('front'));
 }
 catch (Exception $e) {
 	exit($e->getMessage()."\n");

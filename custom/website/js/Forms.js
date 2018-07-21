@@ -13,13 +13,13 @@ class Forms {
         let date_end = date + ' ' + $('#time_end').val();
 
         $.ajax({
-            url: '?path=evenement/add/id_type_evenement='+id_event_type+'/label='+label+'/description='+description+'/date_debut='+date_start+'/date_fin='+date_end,
+            url: '/rest/evenement/add/id_type_evenement='+id_event_type+'/label='+label+'/description='+description+'/date_debut='+date_start+'/date_fin='+date_end,
             type: 'get'
         }).done((data) => {
             let id_event_added = data[data.length-1].id;
             let my_id = $('.user-login-logout-profil').data('id');
             $.ajax({
-                url: '?path=evenement_speaker/add/id_evenement='+id_event_added+'/id_speaker='+my_id,
+                url: '/rest/evenement_speaker/add/id_evenement='+id_event_added+'/id_speaker='+my_id,
                 type: 'get',
                 async: false
             }).done(() => {
@@ -27,7 +27,7 @@ class Forms {
                 Events.get_conferences((key, obj) => {
                     let speakers = [];
                     $.ajax({
-                        url: '?path=evenement_speaker/get/',
+                        url: '/rest/evenement_speaker/get/',
                         type: 'get',
                         async: false
                     }).done((data_speaker) => {
@@ -52,7 +52,7 @@ class Forms {
                 Events.get_other((key, obj) => {
                     let speakers = [];
                     $.ajax({
-                        url: '?path=evenement_speaker/get/',
+                        url: '/rest/evenement_speaker/get/',
                         type: 'get',
                         async: false
                     }).done((data_speaker) => {

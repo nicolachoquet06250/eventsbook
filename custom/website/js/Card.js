@@ -20,7 +20,7 @@ class Card {
         let retour = [];
         $(this.speakers).each((key, obj) => {
             $.ajax({
-                url: 'https://back.eventsbook.nicolaschoquet.fr/rest/speaker/get/id=' + obj,
+                url: '/rest/speaker/get/id=' + obj,
                 type: 'get',
                 async: false,
             }).done((data) => {
@@ -41,6 +41,9 @@ class Card {
     get() {
         return  '<div class="col s12 m6">\n' +
                 '    <div class="card">\n' +
+                '        <div class="right-align">' +
+                '           <a href="javascript:Events.open_update_event_modal(' + this.id + ')"><i class="material-icons" style="cursor: pointer;" title="Éditer l\'évenement &quot; ' + this.title + ' &quot; ">mode_edit</i></a>' +
+                '       </div>' +
                 '        <div class="card-content">\n' +
                 '            <span class="card-title">' + this.title + '</span>\n' +
                 '            <p>' + this.description + '</p>\n' +

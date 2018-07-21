@@ -5,7 +5,7 @@ class Auth {
     static is_connected() {
         let is_connected = false;
         $.ajax({
-            url: '?path=speaker/connected',
+            url: '/rest/speaker/connected',
             type: 'get',
             async: false
         }).done((data) => {
@@ -22,7 +22,7 @@ class Auth {
 
     static page_connection() {
         $.ajax({
-            url: '?path=templates/connection.html',
+            url: '/fr/templates/connection.html',
             type: 'get',
             async: true
         }).done((data) => {
@@ -32,7 +32,7 @@ class Auth {
 
     static page_inscription() {
         $.ajax({
-            url: '?path=templates/inscription.html',
+            url: '/fr/templates/inscription.html',
             type: 'get',
             async: true
         }).done((data) => {
@@ -43,7 +43,7 @@ class Auth {
     static get_user_connected() {
         let user_connected = null;
         $.ajax({
-            url: '?path=speaker/connected',
+            url: '/rest/speaker/connected',
             type: 'get',
             async: false
         }).done((data) => {
@@ -60,7 +60,7 @@ class Auth {
 
     static connection() {
         $.ajax({
-            url: '?path=speaker/connection/email=' + $('#email').val() + '/password=' + $('#password').val(),
+            url: '/rest/speaker/connection/email=' + $('#email').val() + '/password=' + $('#password').val(),
             type: 'get',
             async: true
         }).done((data) => {
@@ -72,7 +72,7 @@ class Auth {
 
     static inscription() {
         $.ajax({
-            url: '?path=speaker/inscription/email=' + $('#email').val() + '/password=' + $('#password').val(),
+            url: '/rest/speaker/inscription/email=' + $('#email').val() + '/password=' + $('#password').val(),
             type: 'get',
             async: true
         }).done((data) => {
@@ -82,7 +82,7 @@ class Auth {
 
     static deconnection(redirect) {
         $.ajax({
-            url: '?path=speaker/disconnect',
+            url: '/rest/speaker/disconnect',
             type: 'get'
         }).done((data) => {
             if(data.success) {
