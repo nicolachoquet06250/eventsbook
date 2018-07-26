@@ -11,6 +11,7 @@
 	 * @method string description(string $description = null)
      * @method string email(string $email = null)
      * @method string password(string $password = null)
+     * @method string image(string $image = null)
 	 **/
 	class speaker extends entity {
 		protected $id;

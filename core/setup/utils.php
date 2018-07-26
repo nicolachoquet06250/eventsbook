@@ -22,7 +22,7 @@ class utils {
     }
 
     public static function http_files($key='') {
-        return isset($_FILES[$key]) ? htmlentities($_FILES[$key]) : null;
+        return isset($_FILES[$key]) ? $_FILES[$key] : null;
     }
 
     public static function http_session($key='', $key2='') {

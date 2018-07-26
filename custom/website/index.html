@@ -1,10 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Accueil</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <title>Accueil</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/rest/Css/get_materialize" rel="stylesheet" />
+    <link href="/rest/Css/get_styles" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+    <script src="/rest/Js/get_scripts/script=Utils"></script>
+    <script src="/rest/Js/get_scripts/script=Card"></script>
+    <script src="/rest/Js/get_scripts/script=Auth"></script>
+    <script src="/rest/Js/get_scripts/script=Forms"></script>
+    <script src="/rest/Js/get_scripts/script=Events"></script>
+    <script src="/rest/Js/get_materialize" type="text/javascript"></script>
+    <script src="/rest/Js/get_scripts/script=main"></script>
 </head>
 <body>
-	<b>custom</b>
+<nav class="nav-extended">
+    <div class="row left-align">
+        <div class="col s6">
+            <h1 class="title" style="font-size: 30px;">eventsbook</h1>
+        </div>
+        <div class="col s6 right-align">
+            <span class="user-login-logout-profil"></span>
+        </div>
+    </div>
+    <div class="nav-content">
+        <ul class="tabs tabs-transparent" id="menu">
+            <li class="tab">
+                <a class="active" href="#evenements">
+                    Évenements
+                </a>
+            </li>
+            <li class="tab">
+                <a href="#conferences">
+                    Conférences
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div id="evenements" class="col s12">
+    <div class="container">
+        <div class="row" id="evenements_"></div>
+    </div>
+</div>
+<div id="conferences" class="col s12">
+    <div class="container">
+        <div class="row" id="conferences_"></div>
+    </div>
+</div>
+
+<div id="modals">
+    <div id="modal_add_event" class="modal">
+        <div class="modal-content">
+            <h4>Ajouter un évenement</h4>
+            <div class="input-field col s12">
+                <select class="material-select" id="evenement_id">
+                    <option value="" disabled selected>Type d'évenement</option>
+                </select>
+                <label for="evenement_id">Choisir un type d'évenement</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="label">
+                <label for="label">Nom de l'évenement</label>
+            </div>
+            <div class="input-field col s12">
+                <textarea type="text" id="description" class="materialize-textarea"></textarea>
+                <label for="description">Courte description</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="date_start" class="datepicker">
+                <label for="date_start">Date de début</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="time_start" class="timepicker">
+                <label for="time_start">Heure de début</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="date_end" class="datepicker">
+                <label for="date_end">Date de fin</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="time_end" class="timepicker">
+                <label for="time_end">Heure de fin</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:Forms.valid_new_event()" class="modal-close waves-effect waves-green btn-flat">Valider</a>
+        </div>
+    </div>
+
+    <div id="modal_update_event" class="modal">
+        <div class="modal-content">
+            <h4>Ajouter un évenement</h4>
+            <div class="input-field col s12">
+                <select id="update_evenement_id">
+                    <option value="" disabled selected>Type d'évenement</option>
+                </select>
+                <label for="update_evenement_id">Choisir un type d'évenement</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="update_label">
+                <label for="update_label">Nom de l'évenement</label>
+            </div>
+            <div class="input-field col s12">
+                <textarea type="text" id="update_description" class="materialize-textarea"></textarea>
+                <label for="update_description">Courte description</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="update_date_start" class="datepicker">
+                <label for="update_date_start">Date de début</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="update_time_start" class="timepicker">
+                <label for="update_time_start">Heure de début</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="update_date_end" class="datepicker">
+                <label for="update_date_end">Date de fin</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="update_time_end" class="timepicker">
+                <label for="update_time_end">Heure de fin</label>
+            </div>
+            <div class="chips chips-autocomplete">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="" class="modal-close waves-effect waves-green btn-flat">Valider</a>
+        </div>
+    </div>
+
+    <div id="modal_update_profil" class="modal">
+        <div class="modal-content">
+            <h4>Modifier mon profil</h4>
+            <div class="input-field col s12">
+                <center>
+                    <div style="width: 100px;">
+                            <img src="" class="responsive-img circle" id="image">
+                    </div>
+                </center>
+                <form id="update_profil_image" action="/rest/speaker/preview_image" method="post" enctype="multipart/form-data">
+                    <div class="file-field input-field">
+                        <div class="btn btn-flat">
+                            <span>File</span>
+                            <input type="file" name="profil_pic" id="profil-pic" onchange="Forms.upload_form_with_preview()">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Upload une photo de profil">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="input-field col s12 m6">
+                <input type="text" id="nom">
+                <label for="nom">Nom</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <input type="text" id="prenom">
+                <label for="prenom">Prénom</label>
+            </div>
+            <div class="input-field col s12">
+                <textarea type="text" id="profil_description" class="materialize-textarea"></textarea>
+                <label for="profil_description">Courte description</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <input type="email" id="email">
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:Forms.valid_profil_changes()" class="modal-close waves-effect waves-green btn-flat">Valider</a>
+        </div>
+    </div>
+
+    <div id="modal_get_profil" class="modal">
+        <div class="modal-content">
+            <h4 class="profil nom"></h4>
+            <div class="input-field col s12">
+                <center>
+                    <div style="width: 100px;">
+                        <img src="" class="responsive-img circle profil image" id="profil_image">
+                    </div>
+                </center>
+            </div>
+            <div class="input-field col s12 profil description"></div>
+            <div class="input-field col s12 m6 profil email"></div>
+        </div>
+    </div>
+
+    <div id="modal_view_event" class="modal">
+        <div class="modal-content">
+            <h4 class="event title"></h4>
+            <div class="col s12 event description"></div>
+            <div class="col s12 event start"></div>
+            <div class="col s12 event end"></div>
+            <div class="col s12 event speakers"></div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_error" class="modal">
+    <div class="modal-content" id="error_page_content"></div>
+</div>
+
+<script type="text/javascript" src="/rest/Js/get_scripts/script=init_materialize_component"></script>
+
 </body>
 </html>

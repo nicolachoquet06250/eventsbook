@@ -72,8 +72,7 @@
 		public function delete($args = []) {
 			if($conf = $this->get_manager('services')->conf()->get_sql_conf($this->bdd_type)['eventsbook']) {
 				$request = Request::getIRequest(new RequestConnexion((array)$conf, $this->bdd_type), $this->bdd_type);
-				$evenement_speaker = new \ormframework\custom\db_context\evenement_speaker($request, false, [['id' => $this->get_from_name('id', $args)]]);
-				$evenement_speaker->remove();
+				$request->delete()->from('evenement_speaker')->where(['id' => $this->get_from_name('id', $args)])->query();
 				$retour = $request->select()->from('evenement_speaker')->query()->get();
 			}
 			else {

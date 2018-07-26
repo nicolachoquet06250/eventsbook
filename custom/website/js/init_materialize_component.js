@@ -1,7 +1,7 @@
 $('.tabs').tabs();
 $('.sidenav').sidenav();
 $('.modal').modal();
-$('select').formSelect();
+$('.material-select').formSelect();
 $('.datepicker').datepicker({
     format: 'dd/mm/yyyy',
     i18n: {

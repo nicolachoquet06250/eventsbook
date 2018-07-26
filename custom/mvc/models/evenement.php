@@ -98,8 +98,9 @@
 				/**
 				 * @var \ormframework\core\db_context\entity $evenement
 				 */
-				$evenement = $request->select()->from('evenement')->where(['id' => $this->get_from_name('id', $args)])->query()->get(0);
-				foreach($evenement->get_not_null_props() as $prop) {
+				$evenement = $request->select()->from('evenement')->query()->get($this->get_from_name('id', $args));
+				$evenement->autosave(true);
+				foreach($evenement->get_not_null_props() as $prop => $old_value) {
 					if($this->get_from_name($prop, $args) !== null) {
 						$evenement->$prop($this->get_from_name($prop, $args));
 					}

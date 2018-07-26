@@ -1,7 +1,8 @@
 Options +FollowSymlinks -Indexes
 RewriteEngine On
 
-RewriteRule	^rest/(.*)$                index.php?path=$1       [L]
+RewriteRule	^rest/(.*)$                index.php?path=$1		[L]
 
-RewriteRule	^fr/$   		   index.php?path=/&front=true    	   [L]
-RewriteRule	^fr/(.*)$   		   index.php?path=$1&front=true       [L]
+RewriteRule	^fr/$   		   index.php?path=/&front=true	[L]
+RewriteRule	^fr$   		   	   index.php?path=/&front=true	[L]
+RewriteRule	^fr/(.*)$   		   index.php?path=$1&front=true	[L]

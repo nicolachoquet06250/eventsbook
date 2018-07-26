@@ -1,0 +1,77 @@
+.input-field .autocomplete-content {
+    width: 100%!important;
+    left: 0px!important;
+    height: auto!important;
+    max-height: 101px!important;
+}
+
+.evenement-card .card {
+    height: 300px;
+    overflow-x: hidden;
+}
+
+.evenement-card .card .chip, #modal_view_event .chip {
+    cursor: pointer;
+}
+
+.message.error {
+    color: darkred;
+}
+
+.message.error a {
+    color: darkred;
+}
+
+.message.error a:hover {
+    text-decoration: underline;
+}
+
+/* width */
+*::-webkit-scrollbar {
+    width: 5px;
+}
+*::-webkit-scrollbar:horizontal {
+    height: 5px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+    background: #ffff;
+}
+*::-webkit-scrollbar-track:horizontal {
+    background: #ffff;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+    background: #e67;
+}
+*::-webkit-scrollbar-thumb:horizontal {
+    background: #e67;
+}
+
+/* width */
+#menu::-webkit-scrollbar {
+    width: 1px;
+}
+#menu::-webkit-scrollbar:horizontal {
+    height: 2px;
+}
+
+/* Track */
+#menu::-webkit-scrollbar-track {
+    background: #e67;
+}
+#menu::-webkit-scrollbar-track:horizontal {
+    background: #e67;
+}
+
+/* Handle */
+#menu::-webkit-scrollbar-thumb {
+    background: #ffff;
+}
+#menu::-webkit-scrollbar-thumb:horizontal {
+    background: #ffff;
+}
+
+
