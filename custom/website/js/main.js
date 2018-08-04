@@ -9,10 +9,12 @@ $(window).ready(() => {
         });
         $('select').formSelect();
     });
-
     Events.get_conferences(Utils.callback_for_conferencies);
-
     Events.get_other(Utils.callback_for_other);
 
     Forms.onsubmit_upload_form_with_preview();
+
+    Medias.onsubmit_upload_image();
+    Medias.onsubmit_upload_video();
+    Medias.onsubmit_upload_youtube();
 });

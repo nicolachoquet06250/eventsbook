@@ -65,7 +65,7 @@ class Card {
                 '       </div>') +
                 '        <div class="card-content">\n' +
                 '            <span class="card-title">' + this.title + '</span>\n' +
-                '            <p>' + this.description + '</p>\n' +
+                '            <p>' + this.description.replace(new RegExp('&lt;br&gt;', 'g'), '<br>') + '</p>\n' +
                 '        </div>\n' +
                 this.get_speakers() +
                 (this.link ? '        <div class="card-action">\n' : '') +

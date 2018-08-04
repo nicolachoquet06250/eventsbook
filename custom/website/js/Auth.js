@@ -74,7 +74,7 @@ class Auth {
 
     static inscription() {
         $.ajax({
-            url: '/rest/speaker/inscription/email=' + $('#email').val() + '/password=' + $('#password').val() + '/description=' + $('#description').val().replace(/\n/g, '<br />') + '/nom=' + $('#nom').val() + '/prenom=' + $('#prenom').val(),
+            url: '/rest/speaker/inscription/email=' + $('#email').val() + '/password=' + $('#password').val() + '/description=' + $('#description').val().replace(/\n/g, '<br>') + '/nom=' + $('#nom').val() + '/prenom=' + $('#prenom').val(),
             type: 'get',
             async: true
         }).done((data) => {
@@ -172,8 +172,20 @@ class Auth {
         $('#'+id_modal+' #image').attr('src', image);
         $('#'+id_modal+' #nom').val(user.nom);
         $('#'+id_modal+' #prenom').val(user.prenom);
-        $('#'+id_modal+' #profil_description').val(user.description);
+        $('#'+id_modal+' #profil_description').val(Utils.unescape(user.description).replace(new RegExp('&lt;br&gt;', 'g'), '\n'));
         $('#'+id_modal+' #email').val(user.email);
+        let events = [];
+        $.ajax({
+            url: '/rest/evenement/get',
+            type: 'get',
+            async: false
+        }).done(data => {
+            $(data).each((key, event) => {
+                if(parseInt(event.id_speaker) === user.id) {
+
+                }
+            });
+        });
     }
 
     static get_user_profil() {
@@ -354,7 +366,7 @@ class Auth {
 
         $('#'+id_modal+' .profil.image').attr('src', image);
         $('#'+id_modal+' .profil.nom').html(user.nom + ' ' + user.prenom);
-        $('#'+id_modal+' .profil.description').html(user.description.replace(/\n/g, '<br/>'));
+        $('#'+id_modal+' .profil.description').html(user.description.replace(/\n/g, '<br>'));
         $('#'+id_modal+' .profil.email').html('<a href="mailto:' + user.email + '">' + user.email + '</a>');
 
         $('#'+id_modal).modal('open');

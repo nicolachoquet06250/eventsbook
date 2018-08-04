@@ -49,21 +49,8 @@
 		public function add($args = []) {
 			if($conf = $this->get_manager('services')->conf()->get_sql_conf($this->bdd_type)['eventsbook']) {
 				$request = Request::getIRequest(new RequestConnexion((array)$conf, $this->bdd_type), $this->bdd_type);
-				$existence_test = $request->select()->from('media')->query()->get();
-				$ok = true;
-                /**
-                 * @var \ormframework\custom\db_context\media $item
-                 */
-                foreach ($existence_test as $item) {
-                    if($item->id_evenement() === $this->get_from_name('id_evenement', $args) && $item->id_speaker() === utils::http_session('user', 'id') && $item->label() === $this->get_from_name('label', $args) && $item->base64_data() === utils::http_post('image')) {
-                        $ok = false;
-                        break;
-                    }
-				}
-				if($ok) {
-                    $media = new \ormframework\custom\db_context\media($request, false, ['id_evenement' => $this->get_from_name('id_evenement', $args), 'type_media' => $this->get_from_name('type_media', $args), 'id_speaker' => utils::http_session('user', 'id'), 'label' => $this->get_from_name('label', $args), 'base64_data' => utils::http_post('image')]);
-                    $media->add();
-                }
+				$media = new \ormframework\custom\db_context\media($request, false, ['label' => $this->get_from_name('label', $args), 'data_name' => $this->get_from_name('data_name', $args), 'base64_data' => $this->get_from_name('base64_data', $args)]);
+				$media->add();
 				$retour = $request->select()->from('media')->query()->get();
 			}
 			else {
@@ -72,30 +59,6 @@
 			return new Json($retour);
 
 		}
-
-        /**
-         * @param array $args
-         * @return Json
-         * @throws \Exception
-         */
-        public function preview($args = []) {
-            $file = utils::http_files('image');
-            $base64_img = $file ? base64_encode(file_get_contents($file['tmp_name'])) : '';
-            $base64_img = 'data: '.mime_content_type($file['tmp_name']).';base64,'.$base64_img;
-
-            $retour = [
-                'image_base64' => $base64_img,
-            ];
-            return new Json($retour);
-        }
-
-        /**
-         * @param array $args
-         */
-        public function preview_youtube($args = []) {
-            var_dump($this->get_from_name('media_type', $args), $this->get_from_name('id_evenement', $args), utils::http_get('youtube_url'));
-            return new Json([]);
-        }
 
 		/**
 		 * @model media

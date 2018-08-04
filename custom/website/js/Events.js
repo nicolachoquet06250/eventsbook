@@ -82,7 +82,7 @@ class Events {
 
             $('#update_label').val(Utils.unescape(data.label));
 
-            $('#update_description').val(Utils.unescape(data.description));
+            $('#update_description').val(Utils.unescape(data.description).replace(new RegExp('&lt;br&gt;', 'g'), '\n'));
 
             let date_start = data.date_debut.split(' ')[0];
             date_start = date_start.split('-');
@@ -229,6 +229,10 @@ class Events {
             $('#modal_update_event .modal-close').attr('href', 'javascript:Events.update_event('+ id +')');
 
             Events.get_speakers_for_modal(id);
+
+            $('.id_evenement').val(id);
+
+            Events.get_media(id);
             
             $('#modal_update_event').modal('open');
         });
@@ -244,7 +248,7 @@ class Events {
         let date_end = date + ' ' + $('#update_time_end').val();
 
         $.ajax({
-            url: '/rest/evenement/update/id='+id+'/id_type_evenement='+$('#update_evenement_id').val()+'/label='+$('#update_label').val()+'/description='+$('#update_description').val()+'/date_debut='+date_start+'/date_fin='+date_end,
+            url: '/rest/evenement/update/id='+id+'/id_type_evenement='+$('#update_evenement_id').val()+'/label='+$('#update_label').val()+'/description='+$('#update_description').val().replace(/\n/g, '<br>')+'/date_debut='+date_start+'/date_fin='+date_end,
             type: 'get'
         }).done(data => {
             if(data.length > 0) {
@@ -387,8 +391,7 @@ class Events {
         let event = null;
         $.ajax({
             url: '/rest/evenement/get/id='+id,
-            type: 'get',
-            async: false
+            type: 'get', async: false
         }).done(data => {
             event = data;
         });
@@ -406,9 +409,36 @@ class Events {
         });
         let speakers_html = Card.instence(event.id, event.label, event.description, event.id_type_evenement, event.link, event.date_debut, event.date_fin, speakers).get_speakers();
         $('#modal_view_event .event.title').html(event.label);
-        $('#modal_view_event .event.description').html(event.description.replace(/\n/g, '<br />'));
+        $('#modal_view_event .event.description').html(event.description.replace(/\n/g, '<br>'));
         $('#modal_view_event .event.speakers').html(speakers_html);
+        Events.get_media(id);
 
         $('#modal_view_event').modal('open');
+    }
+
+    static get_media(id_event) {
+        let medias = [];
+        let medias_html = '';
+        $.ajax({
+            url: '/rest/media/get',
+            type: 'get',
+            async: false
+        }).done(data => {
+            $(data).each((key, media) => {
+                if(parseInt(media.id_evenement) === id_event) {
+                    medias[medias.length] = media;
+                }
+            });
+        });
+
+        medias_html += '<div class="row">';
+        medias_html += '<div class="col s12"><h4 class="title">Gallerie</h4></div>';
+        $(medias).each((key, media) => {
+            let classe = 'col s2';
+            medias_html += '<div class="' + classe + '"><img src="' + media.base64_data + '" width="650" class="responsive-img materialboxed"></div>';
+        });
+        medias_html += '</div>';
+        $('.event.medias').html(medias_html);
+        $('.materialboxed').materialbox();
     }
 }

@@ -15,7 +15,7 @@ class Forms {
         let date_end = date + ' ' + $('#time_end').val();
 
         $.ajax({
-            url: '/rest/evenement/add/id_type_evenement='+id_event_type+'/label='+label+'/description='+description+'/date_debut='+date_start+'/date_fin='+date_end,
+            url: '/rest/evenement/add/id_type_evenement='+id_event_type+'/label='+label+'/description='+description.replace(/\n/g, '<br>')+'/date_debut='+date_start+'/date_fin='+date_end,
             type: 'get'
         }).done((data) => {
             let id_event_added = data[data.length-1].id;
@@ -37,14 +37,13 @@ class Forms {
         if($('#profil-pic').val() !== '') {
             Forms.register_new_profil_image();
         }
-
         $.ajax({
-            url: '/rest/speaker/update/nom='+$('#nom').val()+'/prenom='+$('#prenom').val()+'/email='+$('#email').val()+'/description='+$('#modal_update_profil #description').val()+'/id='+$('.user-login-logout-profil').data('id'),
+            url: '/rest/speaker/update/nom='+$('#nom').val()+'/prenom='+$('#prenom').val()+'/email='+$('#email').val()+'/description='+$('#modal_update_profil #profil_description').val().replace(/\n/g, '<br>')+'/id='+$('.user-login-logout-profil').data('id'),
             type: 'get'
         }).done(data => {
             if(data.length > 0) {
-                Auth.update_connection()
-                Auth.get_user_profil()
+                Auth.update_connection();
+                Auth.get_user_profil();
             }
             else {
                 $('#modal_error #error_page_content').html('Vos informations personnelles n\'ont pas pu être enregistrées');

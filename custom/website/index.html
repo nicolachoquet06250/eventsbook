@@ -18,6 +18,7 @@
     <script src="/rest/Js/get_scripts/script=Auth"></script>
     <script src="/rest/Js/get_scripts/script=Forms"></script>
     <script src="/rest/Js/get_scripts/script=Events"></script>
+    <script src="/rest/Js/get_scripts/script=Medias"></script>
     <script src="/rest/Js/get_materialize" type="text/javascript"></script>
     <script src="/rest/Js/get_scripts/script=main"></script>
 </head>
@@ -131,7 +132,129 @@
                 <input type="text" id="update_time_end" class="timepicker">
                 <label for="update_time_end">Heure de fin</label>
             </div>
-            <div class="chips chips-autocomplete">
+            <div class="chips chips-autocomplete"></div>
+            <div class="col s12 event medias"></div>
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="col s4">
+                        <p>
+                            <label>
+                                <input name="medias_for_event" id="local_image" type="radio" onfocus="Medias.select_tyme_media('modal_update_event', 'upload_image', 'media_types')" checked />
+                                <span>Image locale</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="col s4 hide">
+                        <p>
+                            <label>
+                                <input name="medias_for_event" id="local_video" onfocus="Medias.select_tyme_media('modal_update_event', 'upload_video', 'media_types')" type="radio" />
+                                <span>Vidéo locale</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="col s4 hide">
+                        <p>
+                            <label>
+                                <input name="medias_for_event" id="youtube_video" onfocus="Medias.select_tyme_media('modal_update_event', 'get_youtube_video', 'media_types')" type="radio" />
+                                <span>Vidéo Youtube</span>
+                            </label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row media_types">
+                <div class="col s12 media_type" id="upload_image">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="preview">
+                                <img class="responsive-img" src="https://materializecss.com/images/yuna.jpg">
+                            </div>
+                        </div>
+                        <div class="col s12 input-field">
+                            <form id="preview_media_image_upload_form" action="/rest/media/preview" method="post" enctype="multipart/form-data">
+                                <input type="hidden" class="media_type" value="image">
+                                <input type="hidden" class="id_evenement">
+                                <div class="file-field input-field">
+                                    <div class="btn btn-flat">
+                                        <span>File</span>
+                                        <input type="file" name="media_image" id="media_image" onchange="Medias.upload_image()">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload une image">
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <input type="text" id="label_media_image">
+                                    <label for="label_media_image">Label</label>
+                                </div>
+                                <div class="input-field">
+                                    <button class="btn btn-flat" onclick="Medias.valid_new_image_media()">Ajouter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 media_type hide" id="upload_video">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="preview">
+                                <video class="responsive-video" controls>
+                                    <source src="https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="col s12 input-field">
+                            <form id="preview_media_video_upload_form" action="/rest/media/preview" method="post" enctype="multipart/form-data">
+                                <input type="hidden" class="media_type" value="video">
+                                <input type="hidden" class="id_evenement">
+                                <div class="file-field input-field">
+                                    <div class="btn btn-flat">
+                                        <span>File</span>
+                                        <input type="file" name="media_video" id="media_video" onchange="Medias.upload_video()">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload une vidéo">
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <input type="text" id="label_media_video">
+                                    <label for="label_media_video">Label</label>
+                                </div>
+                                <div class="input-field">
+                                    <button class="btn btn-flat" onclick="Medias.valid_new_video_media()">Ajouter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 media_type hide" id="get_youtube_video">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="preview">
+                                <div class="video-container">
+                                    <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 input-field">
+                            <form id="preview_media_video_youtube_upload_form" action="/rest/media/preview_youtube" method="post">
+                                <input type="hidden" class="media_type" value="youtube">
+                                <input type="hidden" class="id_evenement">
+                                <div class="input-field">
+                                    <input type="text" name="media_youtube" id="media_youtube" onchange="Medias.upload_youtube()">
+                                    <label for="media_youtube">Vidéo Youtube</label>
+                                </div>
+                                <div class="input-field">
+                                    <input type="text" id="label_media_youtube">
+                                    <label for="label_media_youtube">Label</label>
+                                </div>
+                                <div class="input-field">
+                                    <button class="btn btn-flat" onclick="Medias.valid_new_youtube_media()">Ajouter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -185,15 +308,16 @@
     <div id="modal_get_profil" class="modal">
         <div class="modal-content">
             <h4 class="profil nom"></h4>
-            <div class="input-field col s12">
+            <div class="col s12">
                 <center>
                     <div style="width: 100px;">
                         <img src="" class="responsive-img circle profil image" id="profil_image">
                     </div>
                 </center>
             </div>
-            <div class="input-field col s12 profil description"></div>
-            <div class="input-field col s12 m6 profil email"></div>
+            <div class="col s12 profil description"></div>
+            <div class="col s12 m6 profil email"></div>
+            <div class="col s12 profil events"></div>
         </div>
     </div>
 
@@ -204,6 +328,12 @@
             <div class="col s12 event start"></div>
             <div class="col s12 event end"></div>
             <div class="col s12 event speakers"></div>
+            <div class="col s12 event medias"></div>
+        </div>
+    </div>
+
+    <div id="modal_update_media" class="modal">
+        <div class="modal-content">
         </div>
     </div>
 </div>

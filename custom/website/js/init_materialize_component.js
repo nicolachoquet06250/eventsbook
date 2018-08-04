@@ -65,3 +65,4 @@ $('.timepicker').timepicker({
         done: 'Valider'
     }
 });
+$('.materialboxed').materialbox();
